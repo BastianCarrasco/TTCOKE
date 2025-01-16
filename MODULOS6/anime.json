@@ -29,5 +29,10 @@
     "año": "1995",
     "autor": "Yoshiyuki Sadamoto"
   },
-  "6": {}
+  "6": {
+    "nombre": "One Piece",
+    "genero": "Shonen",
+    "año": "1999",
+    "autor": "Eiichiro Oda"
+  }
 }

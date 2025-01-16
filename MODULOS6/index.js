@@ -9,12 +9,21 @@ app.use(bodyParser.json());
 
 // Helper function to read and write anime data
 const getAnimeData = () => {
-    const data = fs.readFileSync('../MODULOS6/model/anime.json', 'utf-8');
-    return JSON.parse(data);
+    try {
+        const data = fs.readFileSync('../MODULOS6/model/anime.json', 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Error reading anime data:', error);
+        return {};
+    }
 };
 
 const saveAnimeData = (data) => {
-    fs.writeFileSync('anime.json', JSON.stringify(data, null, 2));
+    try {
+        fs.writeFileSync('../MODULOS6/model/anime.json', JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error('Error saving anime data:', error);
+    }
 };
 
 // CRUD Operations
@@ -50,8 +59,6 @@ app.get('/', (req, res) => {
     `;
     res.send(instructions);
 });
-
-
 
 app.get('/anime', (req, res) => {
     const data = getAnimeData();
@@ -113,5 +120,4 @@ app.delete('/anime/:id', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Servidor está corriendo en puerto ${PORT}`);
-
 });

@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Registro de nuevo usuario
+
 app.post('/api/registro', async (req, res) => {
     const { nombre, email, contraseña, rol } = req.body;
     try {
@@ -27,7 +27,7 @@ app.post('/api/registro', async (req, res) => {
     }
 });
 
-// Inicio de sesión
+
 app.post('/api/login', async (req, res) => {
     const { email, contraseña } = req.body;
     try {
@@ -47,7 +47,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Obtener todos los paseos
+
 app.get('/api/paseos', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM paseos');
@@ -58,7 +58,7 @@ app.get('/api/paseos', async (req, res) => {
     }
 });
 
-// Obtener paseo por ID
+
 app.get('/api/paseos/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -74,7 +74,7 @@ app.get('/api/paseos/:id', async (req, res) => {
     }
 });
 
-// Crear reserva de paseo
+
 app.post('/api/paseos/:id/reservas', async (req, res) => {
     const { id } = req.params;
     const { id_usuario, cantidad_personas, total } = req.body;
@@ -91,9 +91,9 @@ app.post('/api/paseos/:id/reservas', async (req, res) => {
     }
 });
 
-// Crear paseo de propuesta (solo si el usuario está autenticado)
+
 app.post('/api/paseos/propuesta', async (req, res) => {
-    // Asegúrate de verificar el token antes de permitir la creación
+
     const { nombre, descripcion, ubicacion, duracion, precio, estado, id_categoria } = req.body;
     try {
         const result = await pool.query(
@@ -108,9 +108,9 @@ app.post('/api/paseos/propuesta', async (req, res) => {
     }
 });
 
-// Obtener todos los paseos para administrador
+
 app.get('/api/admin/paseos', async (req, res) => {
-    // Verifica que el usuario sea administrador mediante el token
+
     try {
         const result = await pool.query('SELECT * FROM paseos');
         res.json(result.rows);
@@ -120,7 +120,7 @@ app.get('/api/admin/paseos', async (req, res) => {
     }
 });
 
-// Crear nuevo paseo (solo para admin)
+
 app.post('/api/admin/paseos/nuevo', async (req, res) => {
     const { nombre, descripcion, ubicacion, duracion, precio, estado, id_categoria } = req.body;
     try {
@@ -157,7 +157,7 @@ app.put('/api/admin/paseos/:id/editar', async (req, res) => {
     }
 });
 
-// Eliminar paseo (solo para admin)
+
 app.delete('/api/admin/paseos/:id/eliminar', async (req, res) => {
     const { id } = req.params;
     try {
@@ -173,7 +173,7 @@ app.delete('/api/admin/paseos/:id/eliminar', async (req, res) => {
     }
 });
 
-// Obtener categorías para admin
+
 app.get('/api/admin/paseos/categorias', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM categorias');

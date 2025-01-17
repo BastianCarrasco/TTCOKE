@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mostrar Datos desde Fetch</title>
+  </head>
+  <body>
+    <h1>Datos Obtenidos desde el Fetch</h1>
+    <div id="data-container"></div>
+
+    <script>
+      // Realizar el fetch para obtener los datos
+      fetch("http://localhost:3001/usuarios") // Reemplaza con tu URL
+        .then((response) => response.json()) // Convertir la respuesta a JSON
+        .then((data) => {
+          const dataContainer = document.getElementById("data-container");
+
+          // Iterar sobre los datos y mostrarlos
+          data.forEach((item) => {
+            const postElement = document.createElement("div");
+            postElement.innerHTML = `
+            <h3>${item.nombre}</h3>
+            <p>${item.email}</p>
+            <hr>
+          `;
+            dataContainer.appendChild(postElement);
+          });
+        })
+        .catch((error) => console.error("Error al obtener los datos:", error));
+    </script>
+  </body>
+</html>
